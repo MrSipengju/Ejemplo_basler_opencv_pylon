@@ -1,1 +1,5 @@
 /build
+/ejemplo_lectura/ejemplo_lectura.pro.user.518b4b1
+/build*
+*.user
+*.o

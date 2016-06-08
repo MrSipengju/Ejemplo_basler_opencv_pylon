@@ -6,13 +6,13 @@
 
 class baslerCamera {
 	public:
-	void init();
-	void exposure(double _exposure);
-	void saturation(double _saturation);
-	cv::Mat takePicture();
+        void init();
+        void exposure(double _exposure);
+        void saturation(double _saturation);
+        bool takePicture(cv::Mat &_frame);
 
 	private:
-		Pylon::CInstantCamera mCamera;
+        Pylon::CInstantCamera *mCamera;
 };
 
 #endif // BASLERCAMERA_H
