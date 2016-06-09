@@ -2,6 +2,13 @@
 #include <pylon/PylonIncludes.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <pylon/usb/BaslerUsbInstantCamera.h>
+
+
+
+typedef Pylon::CBaslerUsbInstantCamera Camera_t;
+using namespace Basler_UsbCameraParams;
+typedef Camera_t::GrabResultPtr_t GrabResultPtr_t;
 
 using namespace cv;
 using namespace Pylon;
@@ -14,7 +21,7 @@ void baslerCamera::init() {
 
     // Automagically call PylonInitialize and PylonTerminate to ensure
 	// the pylon runtime system is initialized during the lifetime of this object.
-    mCamera = new Pylon::CInstantCamera(CTlFactory::GetInstance().CreateFirstDevice());
+    mCamera = new Pylon::CBaslerUsbInstantCamera(CTlFactory::GetInstance().CreateFirstDevice());
 
 	Pylon::PylonAutoInitTerm autoInitTerm;
     mCamera->Open();
@@ -25,11 +32,12 @@ void baslerCamera::init() {
 
 //---------------------------------------------------------------------------------------------------------------------
 void baslerCamera::exposure(double _exposure) {
- 
+    mCamera->ExposureTime.SetValue(_exposure);
+    //mCamera->ExposureTime.SetValue(mCamera->ExposureTime.GetMin());
 }
 
 //---------------------------------------------------------------------------------------------------------------------
-void baslerCamera::saturation(double _exposure) {
+void baslerCamera::saturation(double _saturation) {
  
 }
 
@@ -45,10 +53,10 @@ bool baslerCamera::takePicture(cv::Mat &_frame) {
 	Mat cv_img;
 	
 	// Try to take a picture
-    std::cout << "Trying to tale a picture" << std::endl;
+    //std::cout << "Trying to tale a picture" << std::endl;
     mCamera->RetrieveResult( 5000, ptrGrabResult, TimeoutHandling_ThrowException);
 	if (ptrGrabResult->GrabSucceeded())	{	// If frame taken.
-        std::cout << "Took picture" << std::endl;
+        //std::cout << "Took picture" << std::endl;
 		fc.Convert(image, ptrGrabResult);
 		cv_img = cv::Mat(ptrGrabResult->GetHeight(),     ptrGrabResult->GetWidth(), CV_8UC3,(uint8_t*)image.GetBuffer());
         cvtColor(cv_img,_frame,CV_RGB2BGR);

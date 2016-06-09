@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
     namedWindow("Imagen",WINDOW_AUTOSIZE);
 
     baslerCamera camara;
-    camara.exposure(2.0);
+    camara.exposure(1000.0);
     camara.saturation(2.0);
 	camara.init();
 	

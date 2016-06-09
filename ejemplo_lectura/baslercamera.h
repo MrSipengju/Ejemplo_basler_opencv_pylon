@@ -3,6 +3,11 @@
 
 #include <opencv2/opencv.hpp>
 #include <pylon/PylonIncludes.h>
+#include <pylon/usb/BaslerUsbInstantCamera.h>
+
+typedef Pylon::CBaslerUsbInstantCamera Camera_t;
+using namespace Basler_UsbCameraParams;
+typedef Camera_t::GrabResultPtr_t GrabResultPtr_t;
 
 class baslerCamera {
 	public:
@@ -12,7 +17,7 @@ class baslerCamera {
         bool takePicture(cv::Mat &_frame);
 
 	private:
-        Pylon::CInstantCamera *mCamera;
+        Camera_t *mCamera;
 };
 
 #endif // BASLERCAMERA_H
