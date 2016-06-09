@@ -2,13 +2,13 @@
 #include <pylon/PylonIncludes.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#include <pylon/usb/BaslerUsbInstantCamera.h>
+//#include <pylon/usb/BaslerUsbInstantCamera.h>
 
 
 
 typedef Pylon::CBaslerUsbInstantCamera Camera_t;
-using namespace Basler_UsbCameraParams;
-typedef Camera_t::GrabResultPtr_t GrabResultPtr_t;
+//using namespace Basler_UsbCameraParams;
+//typedef Camera_t::GrabResultPtr_t GrabResultPtr_t;
 
 using namespace cv;
 using namespace Pylon;
@@ -32,13 +32,17 @@ void baslerCamera::init() {
 
 //---------------------------------------------------------------------------------------------------------------------
 void baslerCamera::exposure(double _exposure) {
+    //cout << mCamera->ExposureTime.GetValue() << endl;
+    //    cout << "holaaaa" << endl;
+    mCamera->ExposureAuto.SetValue(ExposureAuto_Off);
     mCamera->ExposureTime.SetValue(_exposure);
     //mCamera->ExposureTime.SetValue(mCamera->ExposureTime.GetMin());
 }
 
 //---------------------------------------------------------------------------------------------------------------------
 void baslerCamera::saturation(double _saturation) {
- 
+
+    //mCamera->BslSaturationValue.SetValue(_saturation);
 }
 
 //---------------------------------------------------------------------------------------------------------------------

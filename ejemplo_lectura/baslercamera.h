@@ -7,7 +7,7 @@
 
 typedef Pylon::CBaslerUsbInstantCamera Camera_t;
 using namespace Basler_UsbCameraParams;
-typedef Camera_t::GrabResultPtr_t GrabResultPtr_t;
+//typedef Camera_t::GrabResultPtr_t GrabResultPtr_t;
 
 class baslerCamera {
 	public:
