@@ -2,13 +2,11 @@
 #include <pylon/PylonIncludes.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-//#include <pylon/usb/BaslerUsbInstantCamera.h>
+#include <pylon/usb/BaslerUsbInstantCamera.h>
 
 
 
 typedef Pylon::CBaslerUsbInstantCamera Camera_t;
-//using namespace Basler_UsbCameraParams;
-//typedef Camera_t::GrabResultPtr_t GrabResultPtr_t;
 
 using namespace cv;
 using namespace Pylon;
@@ -21,9 +19,10 @@ void baslerCamera::init() {
 
     // Automagically call PylonInitialize and PylonTerminate to ensure
 	// the pylon runtime system is initialized during the lifetime of this object.
-    mCamera = new Pylon::CBaslerUsbInstantCamera(CTlFactory::GetInstance().CreateFirstDevice());
 
-	Pylon::PylonAutoInitTerm autoInitTerm;
+    mCamera = new Camera_t(CTlFactory::GetInstance().CreateFirstDevice());
+
+    Pylon::PylonAutoInitTerm autoInitTerm;
     mCamera->Open();
     mCamera->StartGrabbing();
     cout << "Using device " << mCamera->GetDeviceInfo().GetModelName() << endl;
@@ -32,16 +31,14 @@ void baslerCamera::init() {
 
 //---------------------------------------------------------------------------------------------------------------------
 void baslerCamera::exposure(double _exposure) {
-    //cout << mCamera->ExposureTime.GetValue() << endl;
-    //    cout << "holaaaa" << endl;
     mCamera->ExposureAuto.SetValue(ExposureAuto_Off);
+    mCamera->GainAuto.SetValue(GainAuto_Continuous);
     mCamera->ExposureTime.SetValue(_exposure);
-    //mCamera->ExposureTime.SetValue(mCamera->ExposureTime.GetMin());
+
 }
 
 //---------------------------------------------------------------------------------------------------------------------
 void baslerCamera::saturation(double _saturation) {
-
     //mCamera->BslSaturationValue.SetValue(_saturation);
 }
 
